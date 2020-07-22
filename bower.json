@@ -11,5 +11,8 @@
     "chatLog",
     "nodejs"
   ],
-  "homepage": "https://github.com/bekirytm/chatLog"
+  "homepage": "https://github.com/bekirytm/chatLog",
+  "dependencies": {
+    "angular": "^1.8.0"
+  }
 }
