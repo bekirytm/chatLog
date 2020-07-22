@@ -1,0 +1,15 @@
+{
+  "name": "chatlog",
+  "description": "",
+  "main": "",
+  "authors": [
+    "bekirytm <bekir.yetim.06@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chat",
+    "chatLog",
+    "nodejs"
+  ],
+  "homepage": "https://github.com/bekirytm/chatLog"
+}
