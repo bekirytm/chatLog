@@ -6,7 +6,7 @@ const passpostGoogle = require('../auth/google');
 router.get('/google' , passpostGoogle.authenticate(
     'google',
     {
-        scope: ['profile']
+        scope: ['profile','email']
     }
 ));
 
