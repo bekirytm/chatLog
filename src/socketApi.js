@@ -1,12 +1,15 @@
 //SERVER TARAFI
 
 const socketio = require('socket.io');
-
+const socketAuthorization = require('../middleware/socketAuthorization');
 const io = socketio();
 
 const socketApi = {
     io      //io:io
 };
+
+//SOCKET.IO MIDDLEWARE
+io.use(socketAuthorization);
 
 //Redis Adapter (redis-socket.io)
 
@@ -17,7 +20,7 @@ io.adapter(redisAdapter({
 }));
 
 io.on('connection' , (socket) => {
-    console.log("a user logged in");
+    console.log("a user login with name " + socket.request.user.name);
 
     socket.broadcast.emit('sa');
 
