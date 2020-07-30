@@ -1,6 +1,7 @@
 //CLİENT TARAFI
 app.controller('chatController' , ['$scope' , ($scope) => {
 
+    $scope.onlineList = [];
     $scope.activeTab = 2;
 
     $scope.changeTab = (tab) => {
@@ -9,7 +10,8 @@ app.controller('chatController' , ['$scope' , ($scope) => {
 
     const socket = io.connect('http://localhost:3000');
 
-    socket.on('sa' , () => {
-        console.log("sa");
-    })
+    socket.on('onlineList' , (users) => {
+        $scope.onlineList = users;
+        $scope.$apply();
+    });
 }]);

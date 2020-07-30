@@ -55,9 +55,10 @@ block content
                   span.preview howdoyoudoaspace
             .tab-right(ng-show="activeTab === 2")
               ul.people
-                li.person
-                  span.name Bekir Yetim
-                  span.preview I was wondering...
+                li.person(ng-repeat="user in onlineList")
+                  img(src="{{ user.meta.profilePhotoUrl }}" )
+                  span.name {{ user.meta.name }} {{ user.meta.surname }}
+                  span.preview &nbsp;
 
           .bottom
             button New Group

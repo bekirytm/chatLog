@@ -28,14 +28,14 @@ io.on('connection' , (socket) => {
     Users.upsert(socket.id, socket.request.user);   //REDİSE EKLEME
 
     Users.list(users => {   //REDİSTE LİSTELEME(Online olanları gösterir)
-        console.log(users);
+        io.emit('onlineList' , users);
     });
 
     socket.on('disconnect' , () => {
         Users.remove(socket.request.user.googleId); //REDİSTEN SİLME
 
         Users.list(users => {   //REDİSTE SİLİNİNCE LİSTELEME
-            console.log(users);
+            io.emit('onlineList' , users);
         });
     })
 });
