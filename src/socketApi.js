@@ -25,10 +25,18 @@ io.adapter(redisAdapter({
 io.on('connection' , (socket) => {
     console.log("a user login with name " + socket.request.user.name);
 
-    Users.upsert(socket.id, socket.request.user);
+    Users.upsert(socket.id, socket.request.user);   //REDİSE EKLEME
+
+    Users.list(users => {   //REDİSTE LİSTELEME(Online olanları gösterir)
+        console.log(users);
+    });
 
     socket.on('disconnect' , () => {
-        Users.remove(socket.request.user.googleId);
+        Users.remove(socket.request.user.googleId); //REDİSTEN SİLME
+
+        Users.list(users => {   //REDİSTE SİLİNİNCE LİSTELEME
+            console.log(users);
+        });
     })
 });
 
