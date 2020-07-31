@@ -27,7 +27,7 @@ io.on('connection' , (socket) => {
     console.log("a user login with name " + socket.request.user.name);
 
     Rooms.list(rooms => {
-        console.log(rooms);
+        io.emit('roomList' , rooms);
     });
 
     Users.upsert(socket.id, socket.request.user);   //REDİSE EKLEME
@@ -39,6 +39,9 @@ io.on('connection' , (socket) => {
     //ROOM İŞLEMLERİ
     socket.on('newRoom' , roomName => {
         Rooms.upsert(roomName);
+        Rooms.list(rooms => {
+            io.emit('roomList' , rooms);
+        });
     });
 
     socket.on('disconnect' , () => {

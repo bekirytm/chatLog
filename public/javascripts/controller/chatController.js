@@ -2,10 +2,18 @@
 app.controller('chatController' , ['$scope' , ($scope) => {
     const socket = io.connect('http://localhost:3000');
     $scope.onlineList = [];
+    $scope.roomList = [];
     $scope.activeTab = 2;
 
+    //Onlines
     socket.on('onlineList' , (users) => {
         $scope.onlineList = users;
+        $scope.$apply();
+    });
+
+    //Rooms
+    socket.on('roomList' , (rooms) => {
+        $scope.roomList = rooms;
         $scope.$apply();
     });
 
