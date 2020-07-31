@@ -10,6 +10,7 @@ const socketApi = {
 
 // libs
 const Users = require('./lib/Users');
+const Rooms = require('./lib/Rooms');
 
 //SOCKET.IO MIDDLEWARE
 io.use(socketAuthorization);
@@ -29,6 +30,11 @@ io.on('connection' , (socket) => {
 
     Users.list(users => {   //REDİSTE LİSTELEME(Online olanları gösterir)
         io.emit('onlineList' , users);
+    });
+
+    //ROOM İŞLEMLERİ
+    socket.on('newRoom' , roomName => {
+        Rooms.upsert(roomName);
     });
 
     socket.on('disconnect' , () => {
