@@ -26,6 +26,10 @@ io.adapter(redisAdapter({
 io.on('connection' , (socket) => {
     console.log("a user login with name " + socket.request.user.name);
 
+    Rooms.list(rooms => {
+        console.log(rooms);
+    });
+
     Users.upsert(socket.id, socket.request.user);   //REDİSE EKLEME
 
     Users.list(users => {   //REDİSTE LİSTELEME(Online olanları gösterir)
