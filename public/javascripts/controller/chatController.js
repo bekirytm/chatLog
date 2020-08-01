@@ -3,9 +3,11 @@ app.controller('chatController' , ['$scope' , ($scope) => {
     const socket = io.connect('http://localhost:3000');
     $scope.onlineList = [];
     $scope.roomList = [];
-    $scope.activeTab = 2;
+    $scope.activeTab = 1;
     $scope.chatClicked = false;
     $scope.chatName = "";
+    $scope.roomId = "";
+    $scope.message = "";
 
     //Onlines
     socket.on('onlineList' , (users) => {
@@ -19,8 +21,22 @@ app.controller('chatController' , ['$scope' , ($scope) => {
         $scope.$apply();
     });
 
+
+    //Mesaj işlemi
+    $scope.newMessage= () => {
+        socket.emit('newMessage' , {
+            message: $scope.message,
+            roomId: $scope.roomId
+        });
+        // console.log($scope.message);
+        // console.log($scope.roomId);
+        $scope.message = "";
+    };
+
+
     $scope.switchRoom = (room) => {
         $scope.chatName = room.name;
+        $scope.roomId = room.id;
         $scope.chatClicked = true;
     };
 

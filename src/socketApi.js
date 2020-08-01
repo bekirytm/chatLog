@@ -44,6 +44,11 @@ io.on('connection' , (socket) => {
         });
     });
 
+    //MESAJ İŞLEMİ
+    socket.on('newMessage' , (data) => {
+        console.log(data);
+    });
+
     socket.on('disconnect' , () => {
         Users.remove(socket.request.user.googleId); //REDİSTEN SİLME
 
