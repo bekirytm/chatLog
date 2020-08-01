@@ -5,6 +5,7 @@ app.controller('chatController' , ['$scope', 'chatFactory', ($scope , chatFactor
     $scope.roomList = [];
     $scope.activeTab = 1;
     $scope.chatClicked = false;
+    $scope.deneme = 1;
     $scope.chatName = "";
     $scope.roomId = "";
     $scope.message = "";

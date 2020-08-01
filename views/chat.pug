@@ -35,6 +35,8 @@ block content
 
           .bottom
             button(ng-click="newRoom()") New Room
+        .right(ng-show="!chatClicked")
+          img(src='images/chatlog1.png')
         .right(ng-show="chatClicked")
           .top
             span
