@@ -1,5 +1,5 @@
 //CLİENT TARAFI
-app.controller('chatController' , ['$scope', 'chatFactory', ($scope , chatFactory) => {
+app.controller('chatController' , ['$scope', 'userFactory' ,'chatFactory', ($scope , userFactory,chatFactory) => {
     const socket = io.connect('http://localhost:3000');
     $scope.onlineList = [];
     $scope.roomList = [];
@@ -10,6 +10,15 @@ app.controller('chatController' , ['$scope', 'chatFactory', ($scope , chatFactor
     $scope.roomId = "";
     $scope.message = "";
     $scope.messages = []; //mesajlar
+    $scope.user = {};     //Oturumu açan kullanıcı
+
+    //Initialization (Kullananın kim olduğunu gösteren servis(oturumu kim açtı))
+    function init(){
+        userFactory.getUser().then(user => {
+            $scope.user = user;
+        })
+    }
+    init();
 
     //Onlines
     socket.on('onlineList' , (users) => {
@@ -33,6 +42,8 @@ app.controller('chatController' , ['$scope', 'chatFactory', ($scope , chatFactor
         // console.log($scope.message);
         // console.log($scope.roomId);
         $scope.message = "";
+
+        console.log($scope.user);
     };
 
 
