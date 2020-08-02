@@ -56,7 +56,7 @@ io.on('connection' , (socket) => {
     });
 
     socket.on('disconnect' , () => {
-        Users.remove(socket.request.user.googleId); //REDİSTEN SİLME
+        Users.remove(socket.request.user._id); //REDİSTEN SİLME
 
         Users.list(users => {   //REDİSTE SİLİNİNCE LİSTELEME
             io.emit('onlineList' , users);
