@@ -9,6 +9,7 @@ app.controller('chatController' , ['$scope', 'chatFactory', ($scope , chatFactor
     $scope.chatName = "";
     $scope.roomId = "";
     $scope.message = "";
+    $scope.messages = []; //mesajlar
 
     //Onlines
     socket.on('onlineList' , (users) => {
@@ -40,8 +41,11 @@ app.controller('chatController' , ['$scope', 'chatFactory', ($scope , chatFactor
         $scope.roomId = room.id;
         $scope.chatClicked = true;
 
+        //Mesajları getiren servis
         chatFactory.getMessages(room.id).then(data => {
-            console.log(data);
+            // console.log(data);
+            $scope.messages[room.id] = data;
+            console.log($scope.messages);
         })
     };
 
