@@ -47,13 +47,16 @@ io.on('connection' , (socket) => {
 
     //MESAJ İŞLEMİ
     socket.on('newMessage' , (data) => {
-        console.log(data);
-        Messages.upsert({
+        const messageData = {
             ...data,
             userId: socket.request.user._id,
             username:  socket.request.user.name,
             surname: socket.request.user.surname
-        })
+        };
+        Messages.upsert(messageData);
+
+        socket.broadcast.emit('receiveMessage' , messageData);  //Mesajların anlık herkese gitmesi.
+
     });
 
     socket.on('disconnect' , () => {

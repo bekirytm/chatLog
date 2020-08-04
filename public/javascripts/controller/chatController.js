@@ -34,6 +34,17 @@ app.controller('chatController' , ['$scope', 'userFactory' ,'chatFactory', ($sco
     });
 
 
+    socket.on('receiveMessage' , (data) => {     //Mesajın herkese gönderilmesi işlemi
+        $scope.messages[data.roomId].push({
+            userId: data.userId,
+            username: data.name,
+            surname: data.surname,
+            message: data.message
+        });
+        $scope.$apply();
+
+    });
+
     //Mesaj işlemi
     $scope.newMessage= () => {
         if($scope.message.trim() !== ""){   //Mesaj boş değilse gönder
