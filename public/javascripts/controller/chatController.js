@@ -36,15 +36,23 @@ app.controller('chatController' , ['$scope', 'userFactory' ,'chatFactory', ($sco
 
     //Mesaj işlemi
     $scope.newMessage= () => {
-        socket.emit('newMessage' , {
-            message: $scope.message,
-            roomId: $scope.roomId
-        });
-        // console.log($scope.message);
-        // console.log($scope.roomId);
-        $scope.message = "";
+        if($scope.message.trim() !== ""){   //Mesaj boş değilse gönder
+            socket.emit('newMessage' , {
+                message: $scope.message,
+                roomId: $scope.roomId
+            });
 
-        console.log($scope.user);
+            $scope.messages[$scope.roomId].push({
+                userId: $scope.user._id,
+                username: $scope.user.name,
+                surname: $scope.user.surname,
+                message: $scope.message
+            });
+
+            $scope.message = "";
+        }
+
+        // console.log($scope.user);
     };
 
 
