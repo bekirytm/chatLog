@@ -51,16 +51,27 @@ app.controller('chatController' , ['$scope', 'userFactory' ,'chatFactory', ($sco
     $scope.switchRoom = (room) => {
         $scope.chatName = room.name;
         $scope.roomId = room.id;
-        $scope.chatClicked = true;
-        $scope.loadingMessages = true;
 
-        //Mesajları getiren servis
-        chatFactory.getMessages(room.id).then(data => {
-            // console.log(data);
-            $scope.messages[room.id] = data;
-            console.log($scope.messages);
-            $scope.loadingMessages = false;
-        })
+        $scope.chatClicked = true;
+
+        //Her oda değiştiğinde servise bağlanmaması için mesajlar daha önce yüklendiyse servise bağlanmama.
+        if (!$scope.messages.hasOwnProperty(room.id)){
+            $scope.loadingMessages = true;
+
+            console.log("Servise Bağlanıyor.");
+
+            //Mesajları getiren servis
+            chatFactory.getMessages(room.id).then(data => {
+                // console.log(data);
+                $scope.messages[room.id] = data;
+                // console.log($scope.messages);
+                $scope.loadingMessages = false;
+            })
+        }
+
+
+
+
     };
 
     $scope.newRoom = () => {
